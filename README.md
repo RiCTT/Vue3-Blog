@@ -9,7 +9,32 @@
   - i18n，通过爬虫生成language文件，根据环境切换语言（生产不建议，玩玩即可）
 
 
+## 全局挂载方法/变量
+
+  在组合式API下，对比V2，是很少访问this的，如果要获取当前组件实例上下文，都是通过getCurrentInstance()中的ctx
+
+  - 方法一
+  ```js
+  // main.js 
+  app.config.globalProperties.$http = http
+
+  import { getCurrentInstance } from 'vue'
+  const { ctx } = getCurrentInstance
+  ctx.$http.xxx
+  ```
+  - 方法二
+  ```js
+  // main.js
+  app.provide('$http', http)
+
+  import { inject } from 'vue'
+  const $http = inject('$http') 
+  ```
+
+
 ## Mock说明
+
+  之前把mock文件夹丢在src下，导致每次有更新或者保存动作的时候，nodemon都会监听到，然后去执行，以至于端口占用..
 
   xxx
   ```js
@@ -33,6 +58,8 @@
   export {
     http
   }
+  // 等价于
+  export { http } from './axios.js'
 
   // 引用utils的模块
   import { http } from '/@/utils/index'

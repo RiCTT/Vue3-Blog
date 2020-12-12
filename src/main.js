@@ -5,7 +5,6 @@ import '/assets/styles/index.css'
 import '/assets/styles/variables.css'
 import { http } from './utils/index'
 
-console.log(http)
 
 const installPack = (key, value) => {
   return {
@@ -15,7 +14,9 @@ const installPack = (key, value) => {
   } 
 }
 
+
 const app = createApp(App)
 app.use(router)
 app.use(installPack('$http', http))
+app.provide('$http', http)
 app.mount('#app')

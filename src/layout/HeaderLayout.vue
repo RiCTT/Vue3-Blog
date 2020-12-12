@@ -7,7 +7,7 @@
           <span>搜索</span>
         </li>
         <li class="menu-item">
-          <img class="avatar" src="https://user-gold-cdn.xitu.io/2020/7/29/1739834eca7a5b53?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1" alt="">
+          <img class="avatar" src="https://user-gold-cdn.xitu.io/2020/7/29/1739834eca7a5b53?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1" alt="avatar">
         </li>
       </ul>
     </div>

@@ -5,7 +5,7 @@
         <div class="content-chunk">
           <h3>最新文章</h3>
           <ul class="list-wrapper">
-            <li class="list-item">
+            <li class="list-item" v-for="(item, index) in state.list" :key="index">
               <span class="date">2020年11月27日 » </span>
               <a href="baidu.com">
                 <span class="title">科技爱好者周刊（第 135 期）：什么行业适合创业？</span>
@@ -16,7 +16,7 @@
         <div class="content-chunk">
           <h3>一句话</h3>
           <ul class="list-wrapper">
-            <li class="list-item">
+            <li class="list-item"  v-for="(item, index) in refState" :key="index">
               <span class="date">2020年11月27日 » </span>
               <a href="baidu.com">
                 <span class="title">科技爱好者周刊（第 135 期）：什么行业适合创业？</span>
@@ -36,36 +36,28 @@
 </template>
 
 <script>
-import { ref, reactive, onMounted, onUpdated, onUnmounted, getCurrentInstance } from 'vue'
+import { ref, reactive, onMounted, onUpdated, onUnmounted } from 'vue'
 import TwoColumnLayout from '/@/layout/TwoColumnLayout.vue'
+import { getList, getComment } from '/api/blog'
 export default {
   components: {
     TwoColumnLayout
   },
   setup() {
-    const ctx = getCurrentInstance()
-    const count = ref(0)
-    const articleList = ref([])
-    const book = reactive({ title: 'Vue book', bookCount: count })
-    const handleClick = (e) => {
-      count.value++
-    }
+    const state = reactive({
+      list: []
+    })
+    const refState = ref([])
     
-    onMounted(() => {
-      console.log(ctx)
-      console.log(ctx.$http)
-      console.log('mounted!')
-    })
-    onUpdated(() => {
-      console.log('updated!')
-    })
-    onUnmounted(() => {
-      console.log('unmounted!')
-    })
+    getList()
+      .then(res => {
+        state.list = res.data
+        refState.value = res.data.concat(res.data)
+      })
     return {
-      count,
-      book,
-      handleClick
+      state,
+      getList,
+      refState
     }
   }
 }

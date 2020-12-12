@@ -10,6 +10,11 @@ module.exports = {
     '/@/': resolve('./src'),
     '/layout/': resolve('./src/layout'),
     '/components/': resolve('./src/components'),
-    '/assets/': resolve('./src/assets')
-  }  
+    '/assets/': resolve('./src/assets'),
+    '/api/': resolve('./src/api')
+  },
+  // 请求代理
+  proxy: {
+    '/mock': 'http://127.0.0.1:9888'
+  }
 }
