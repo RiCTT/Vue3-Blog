@@ -25,16 +25,24 @@
           </ul>
         </div>
       </div>
-      <div>12</div>
     </template>
     <template v-slot:right>
-      <div class="right-wrapper"></div>
-      <div>456</div>
+      <div class="right-wrapper" v-loading="state.loading">
+        <img class="avatar" src="https://user-gold-cdn.xitu.io/2020/7/29/1739834eca7a5b53?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1" alt="avatar">
+        <div class="info-wrapper">
+          <h3>网络日志</h3>
+          <ul class="info-list">
+            <li class="info-item">
+              <span class="icon"><i>icon</i></span>
+              <span>xxxx.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </template>
   </TwoColumnLayout>
   
 </template>
-
 <script>
 import { ref, reactive, onMounted, onUpdated, onUnmounted } from 'vue'
 import TwoColumnLayout from '/@/layout/TwoColumnLayout.vue'
@@ -45,15 +53,21 @@ export default {
   },
   setup() {
     const state = reactive({
-      list: []
+      list: [],
+      loading: false
     })
     const refState = ref([])
     
     getList()
       .then(res => {
+        state.loading = true
         state.list = res.data
         refState.value = res.data.concat(res.data)
       })
+      .finally(() => {
+        state.loading = false
+      })
+      
     return {
       state,
       getList,
@@ -63,6 +77,33 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
+.right-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 15px;
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+  .info-wrapper {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+.info-wrapper {
+
+}
+.info-list {
+  .info-item {
+    .icon {
+      margin-right: 10px;
+    }
+  }
+}
 </style>

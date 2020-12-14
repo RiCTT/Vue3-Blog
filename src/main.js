@@ -4,6 +4,7 @@ import router from './router'
 import '/assets/styles/index.css'
 import '/assets/styles/variables.css'
 import { http } from './utils/index'
+import Directive from './directive'
 
 
 const installPack = (key, value) => {
@@ -17,6 +18,7 @@ const installPack = (key, value) => {
 
 const app = createApp(App)
 app.use(router)
+app.use(Directive)
 app.use(installPack('$http', http))
 app.provide('$http', http)
 app.mount('#app')
