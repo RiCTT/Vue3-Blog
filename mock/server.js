@@ -10,11 +10,15 @@ const getMockDataByUrl = (url = '') => {
   let paths = url.split('/')
   let fileName = paths[0]
   let key = paths[1]
+  if (key.indexOf('?') > -1) {
+    key = key.split('?')[0]
+  }
   // 比如url: /mock/blog/list
   // 只支持一级，mock为前缀，blog为对应的文件，list为文件导出的变量
   try {
     let requirePath = path.join(__dirname, './data/', fileName)
     let files = require(requirePath)
+    console.log(key)
     if (files && files[key]) {
       return files[key]
     }/*  */

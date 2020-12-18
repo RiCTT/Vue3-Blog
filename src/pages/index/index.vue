@@ -7,7 +7,7 @@
           <ul class="list-wrapper">
             <li class="list-item" v-for="(item, index) in state.list" :key="index">
               <span class="date">2020年11月27日 » </span>
-              <a href="baidu.com">
+              <a href="blog/123455">
                 <span class="title">科技爱好者周刊（第 135 期）：什么行业适合创业？</span>
               </a>
             </li>
@@ -18,7 +18,7 @@
           <ul class="list-wrapper">
             <li class="list-item"  v-for="(item, index) in refState" :key="index">
               <span class="date">2020年11月27日 » </span>
-              <a href="baidu.com">
+              <a href="blog/123455">
                 <span class="title">科技爱好者周刊（第 135 期）：什么行业适合创业？</span>
               </a>
             </li>
@@ -67,7 +67,7 @@ export default {
       .finally(() => {
         state.loading = false
       })
-      
+
     return {
       state,
       getList,
@@ -96,9 +96,6 @@ export default {
   }
 }
 
-.info-wrapper {
-
-}
 .info-list {
   .info-item {
     .icon {

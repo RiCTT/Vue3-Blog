@@ -28,16 +28,32 @@ let mountLoading = (e, value) => {
     }
     e.appendChild(instance)
   } else if (!value && instance) {
-    e.removeChild(instance)
+    // TODO: 重新渲染的时候，instance也会被清空掉，新的节点是一个没有loading元素的
+    // 后期参考一下其他实现or组件的形式
+    // 或者Teleport
+    if (!e.children?.length) return
+    let index = e.children.length
+    for (let i = 0; i < index; i++) {
+      let child = e.children[i]
+      if (child === instance) {
+        e.removeChild(instance)
+        break
+      }
+    }
   }
 }
 
 
+
 export default {
   beforeMount(e, binding) {
+    e._flag = binding.value
     mountLoading(e, binding.value)
   },
   beforeUpdate(e, binding) {
-    mountLoading(e, binding.value)
+    if (e._flag !== binding.value) {
+      e._flag = binding.value
+      mountLoading(e, binding.value)
+    }
   },
 }
