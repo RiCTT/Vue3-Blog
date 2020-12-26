@@ -14,6 +14,7 @@ require('./db')
 
 const mdDir = path.join(__dirname, '../markdown')
 const uploadedType = /-\w+\.md$/ // 已上传的格式，建议12[title].md
+const editedType = /-update-\w+\.md/
 const metas = ['title', 'time', 'category', 'tag']
 const metasRegexp = metas.map(item => {
   // /\$time\:\s+([\u4e00-\u9fa5\w+\-,]*)\;/
@@ -39,6 +40,7 @@ let models = []
 list.forEach(fileName => {
   fs.readFile(path.join(mdDir, '../markdown/', fileName), 'utf-8', (err, result) => {
     if (err) throw err
+    writeBackup(fileName, result)
     let item = {}
     let originStr = result
     result = result.replace(/\n/g, '')
@@ -62,13 +64,21 @@ list.forEach(fileName => {
   })
 })
 
+async function writeBackup(fileName, content) {
+  fs.writeFile(path.join(mdDir, '../markdown-backup/', fileName), content, (err) => {
+    if (err) {
+      throw err
+    }
+  })
+}
+
 async function writeToDB(models) {
   let map = {}
   console.log(1)
   for (let i = 0; i < models.length; i++) {
     let body = await new Blog(models[i]).save()
     let { fileName } = models[i]
-    let newFileName = `${fileName}-${String(body._id).substring(0, 8)}.md`;
+    let newFileName = `${fileName}-${body._id}.md`;
     map[`${fileName}.md`] = newFileName
   }
   goRenameFile(map)
