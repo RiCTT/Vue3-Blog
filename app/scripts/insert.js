@@ -88,7 +88,7 @@ async function main() {
   let list = await getInsertList(insertDir)
   if (list.length === 0) {
     console.log('写入完成：没有新增的数据，或检查格式;');
-    process.exit(1)
+    process.exit(0)
   }
   let infoList = await readAndextractListInfo(list)
   goSaveList2DB(infoList)

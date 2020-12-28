@@ -92,7 +92,7 @@ async function main() {
   let list = await getList(updateDir)
   if (list.length === 0) {
     console.log('更新失败：没有更新的数据，或检查格式;');
-    process.exit(1)
+    process.exit(0)
   }
   let infoList = await readAndextractListInfo(list)
   goUpdateList2DB(infoList)

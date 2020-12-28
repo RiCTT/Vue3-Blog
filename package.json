@@ -4,7 +4,6 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "concurrently 'npm run mock' 'vite'",
-    "mock": "xl_close_port -p 9888 && nodemon ./mock/server.js",
     "build": "vite build"
   },
   "dependencies": {

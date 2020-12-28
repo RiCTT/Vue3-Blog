@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "update:md": "node ./scripts/update.js",
+    "insert:md": "node ./scripts/insert.js"
   },
   "keywords": [],
   "author": "",
